@@ -1,0 +1,143 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="scotchTodo">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Node/Angular Todo App</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="example.css"><!-- load bootstrap -->
+
+	<style>
+		html 					{ overflow-y:scroll; }
+	</style>
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+	<script src="core.js"></script>
+	<script src="ui-bootstrap-tpls-0.10.0.min.js"></script>
+
+
+</head>
+
+<!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
+<body ng-controller="eventController">
+
+<script type="text/ng-template" id="myModalContent">
+        <div class="modal-header">
+            <h3>Error</h3>
+        </div>
+        <div class="modal-body">
+        	Can not connect to server. Reload the page.
+        	Any changes made will not be saved.        	
+		</div>
+    </script>	
+
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container">
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav active">
+        <li>
+          <a href="/events">Events</a>
+        </li>
+
+        <li>
+          <a href="/ready">Ready</a>
+        </li>
+
+        <li>
+          <a href="/imported">Imported</a>
+        </li>
+   
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+	<div class="container">
+
+
+		<div id="event-list" class="row">
+			<div collapse="!(isUpdateCollapsed && isModifyCollapsed)">
+				<table class="table table-striped" >
+
+						<tr ng-repeat="event in events_imported">
+							<td>{{ event.name }} </td>
+							<td>{{ event.date }} </td>
+							<td>{{ event.days }} </td>
+
+							<td>{{ event.status }}	</td>	
+							<td>{{ event.attendants.length }}	</td>	
+
+							<td> 
+								<button type="button" class="btn btn-warning btn-sm" ng-click="modifyEvent(event._id)"><span class="glyphicon glyphicon-cog"></span>View</button>
+								
+						</td>
+						</tr>		
+
+				</table>
+
+			</div>
+		</div>
+
+		<div >
+			<br/>
+			<div collapse="isModifyCollapsed">
+				<div class="well well-lg">
+     							
+
+     				<div class="row">
+					    <div class="col-lg-6 col-xs-6"></div>
+					    <div class="col-lg-6 col-xs-6">
+					      <div class="col-lg-2 col-lg-push-10 col-md-2 col-md-push-0 col-sm-2 col-sm-push-0 col-xs-2 col-xs-push-0">
+					        <div class="pull-right"><span class="push-right glyphicon glyphicon-remove" ng-click="cancelModify()"></span></div>
+					      </div>
+					    </div>
+					</div>			
+
+					<div id="todo-form" class="row">
+						<div class="col-sm-8 col-sm-offset-2 text-center">
+							<form novalidate ng-submit="addAttendant()" name="myform2">
+
+								<div>
+								<h4>{{formData.name}} {{formData.date }} : {{ formData.attendants.length }} members</h4>
+								</div>
+
+								<div id="event-list" class="row">
+										<div>
+											<table class="table table-striped" >
+
+													<tr ng-repeat="attendant in formData.attendants">
+														<td>{{ attendant.name }} </td>
+													</tr>		
+
+											</table>
+
+										</div>
+								</div>
+
+
+								
+
+								
+							</form>
+						</div>
+					</div>
+				</div>		
+			</div>
+		</div>
+		
+	</div>
+
+
+</body>
+</html>
